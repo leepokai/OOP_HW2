@@ -7,15 +7,15 @@ struct AVLNode{
     AVLNode* left;
     AVLNode* right;
     int height;
-    vector<string> borrowHistory;
-    int borrowCount;
-    AVLNode(const Book& b): book(b), left(nullptr), right(nullptr), height(1), borrowCount(0){}
+    vector<pair<string,string>> borrowHistory;
+    AVLNode(const Book& b): book(b), left(nullptr), right(nullptr), height(1){}
 };
 
 class Library{
     private:
         AVLNode* titleRoot;
         AVLNode* yearRoot;
+        vector<pair<string, string>> borrowHistory;
 
         int height(AVLNode* node);
         int balanceFactor(AVLNode* node);
@@ -25,15 +25,17 @@ class Library{
         AVLNode* insertByTitle(AVLNode* node, const Book& book);
         AVLNode* removeByTitle(AVLNode* node, const string& title);
         AVLNode* searchByTitle(AVLNode* node, const string& title);
+        void searchByYear(AVLNode* node, int year, vector<Book>& results);
         void inOrderTraversalByTitle(AVLNode* node, vector<Book>& books) const;
         
         AVLNode* insertByYear(AVLNode* node, const Book& book);
         AVLNode* removeByYear(AVLNode* node, int year, const string& title);
-        vector<Book> searchByYear(AVLNode* node, int year, vector<Book>& results);
+        
         
 
         void destroyTree(AVLNode* node);
         AVLNode* minValueNode(AVLNode* node);
+        AVLNode* maxValueNode(AVLNode* node);
 
     public:
         Library();
@@ -46,5 +48,6 @@ class Library{
         bool checkOutBook(const string& title, const string& username);
         bool returnBook(const string& title, const string& username);
         vector<Book> getAllBooks() const;
-        vector<string> getBorrowHistory(const string& title);
+        vector<string> getSpecificBookBorrowHistory(const string& title);
+        vector<pair<string, string>> getOverAllBorrowHistory();
 };

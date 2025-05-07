@@ -3,8 +3,21 @@
 3. 查詢該本書有被那些人借過 ，因此借書的人在借書的時候應該要說自己的 username 是誰
 5. 我們以時間來做 排序然後再以 title 做排序
 6. 然後我需要兩個 library 一個以 year 做排序一個以 title 做排序
-7. 基本上我可以做 3 個 library，然後透過 title 為排序的 search 到 title 那本書然後找到對應的 year 和 borrowcoount 修改以 year 作為排序和 borrowcount 作為排序的 library，達成 O(logn) 操作
-8. 但這樣會導致我的 borrow count 的數量改變導致我的以 borrowcount 作為排序的 library，需要先 remove 原本的 borrow count 然後再 insert 新的 borrowcount 
+7. 基本上我可以做 2 個 library，然後透過 title 為排序的 search 到 title 那本書然後找到對應的 year，達成 O(logn) 操作
+8. 可以remove 掉圖書館的一本書
+
+
+用什麼達成
+3. 使用 AVL 來建立資料結構
+
+
+額外 feature
+1. 有書本對應的不同屬性
+2. 所有操作皆可以 O(logn) 滿足
+4. 紀錄所有讀過這本書的人以及借閱次數
+5. 可以 remove 掉圖書館的這本書
+
+
 HW2
 Library management system
 •Create a C++ program to manage a library using class
