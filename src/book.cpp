@@ -2,8 +2,15 @@
 #include <iostream>
 Book::Book(const string& title, const string& author, int year, 
     const string& isbn, const string& genre, int copies): 
-    title(title), author(author), year(year), isbn(isbn), genre{genre}, availableCopies(copies){
-
+    title(title), 
+    author(author), 
+    year(year), 
+    isbn(isbn), 
+    genre(genre),
+    totalCopies(copies),    
+    availableCopies(copies), 
+    borrowCount(0){
+    
 }
 
 Book::~Book(){

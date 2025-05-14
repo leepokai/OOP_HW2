@@ -125,15 +125,7 @@ AVLNode* Library::insertByYear(AVLNode* node, const Book& book) {
     return node;
 }
 
-AVLNode* Library::searchByTitle(AVLNode* node, const string& title){
-    if(node == nullptr || node->book.getTitle() == title){
-        return node;
-    }
-    if(title < node->book.getTitle()){
-        return searchByTitle(node->left, title);
-    }
-    return searchByTitle(node->right, title);
-}
+
 
 AVLNode* Library::minValueNode(AVLNode* node){
     AVLNode* current = node;
@@ -276,16 +268,14 @@ void Library::searchByYear(AVLNode* node,int year, vector<Book>& results){
         searchByYear(node->right, year, results);
     }
 }
-AVLNode* Library::searchByTitle(AVLNode* node, const string& title) {
-    if(node->book.getTitle() > title){
-        searchByTitle(node->left, title);
-    }
-    else if(node->book.getTitle() < title){
-        searchByTitle(node->right, title);
-    }
-    else{
+AVLNode* Library::searchByTitle(AVLNode* node, const string& title){
+    if(node == nullptr || node->book.getTitle() == title){
         return node;
     }
+    if(title < node->book.getTitle()){
+        return searchByTitle(node->left, title);
+    }
+    return searchByTitle(node->right, title);
 }
 
 
@@ -310,6 +300,7 @@ bool Library::removeBook(const string& title){
     int year = node->book.getYear();
     titleRoot = removeByTitle(titleRoot, title);
     yearRoot = removeByYear(yearRoot, year, title);
+    return true;
 }
 
 bool Library::checkOutBook(const string& title, const string& username){
@@ -341,4 +332,13 @@ vector<string> Library::getSpecificBookBorrowHistory(const string& title){
 
 vector<pair<string, string>> Library::getOverAllBorrowHistory(){
     return borrowHistory;
+}
+Book* Library::searchByTitle(const string& title) {
+    AVLNode* node = this->searchByTitle(titleRoot, title);
+    return node ? &(node->book) : nullptr;
+}
+vector<Book> Library::searchByYear(int year) {
+    vector<Book> results;
+    this->searchByYear(yearRoot, year, results);
+    return results;
 }
